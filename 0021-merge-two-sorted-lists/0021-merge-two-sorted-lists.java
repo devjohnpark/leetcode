@@ -9,8 +9,10 @@
  * }
  */
 class Solution {
+    // recursive version
+    // 기존 리스트의 크기 비교해서 작은 값이면, 새로운 리스트에 연결 -> 반족
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-        ListNode list = new ListNode();
+        ListNode list = new ListNode(-1);
         ListNode cur = list; // pointer for searching
         while(list1 != null && list2 != null) {
             if (list1.val < list2.val) {
@@ -22,7 +24,14 @@ class Solution {
             }
             cur = cur.next;
         }
-        cur.next = list1 == null ? list2 : list1; // set remaining list
+
+        // set remaining list
+        if (list1 != null) {
+            cur.next = list1;
+        } else if (list2 != null) {
+            cur.next = list2;
+        }
+
         return list.next; // head of list val is initialize 0
     }
 }
