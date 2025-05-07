@@ -9,8 +9,6 @@
  * }
  */
 class Solution {
-    // recursive version
-    // 기존 리스트의 크기 비교해서 작은 값이면, 새로운 리스트에 연결 -> 반족
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
         ListNode list = new ListNode(-1);
         ListNode cur = list; // pointer for searching
