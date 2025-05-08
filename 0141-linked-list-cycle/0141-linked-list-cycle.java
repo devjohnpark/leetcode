@@ -10,6 +10,7 @@
  * }
  */
 
+ // 원형에서 속도 차이를 사용해서 접점을 발생시켜 원형인지 확인 가능
  // Using two pointer
  // speed of pointer2 x 2 -> pointer 1 reach pointer 2
 public class Solution {
