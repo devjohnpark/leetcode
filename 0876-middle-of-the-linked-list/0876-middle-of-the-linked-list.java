@@ -9,7 +9,7 @@
  * }
  */
 class Solution {
-    // it's distance problem -> so use speed difference
+    // 지점으로 푸는 문제: it's distance problem -> so use speed difference
     // two pointer
     // fast.next == null 이면, return slow
     public ListNode middleNode(ListNode head) {
