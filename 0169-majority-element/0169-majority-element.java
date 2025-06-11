@@ -7,7 +7,7 @@ class Solution {
 
     // majority가 ⌊n / 2⌋ 이상 저장되어있다는것이 힌트
     public int majorityElement(int[] nums) {
-        Arrays.sort(nums); // aver: O(n log n), worst: O(n²)
+        Arrays.sort(nums); // primitive type은 내부적으로 퀵소트 사용 - aver: O(nlogn), worst: O(n²)
         return nums[nums.length/2];
     }
 
