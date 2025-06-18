@@ -18,7 +18,7 @@ class Solution {
     // }
 
     // O(N)
-    // 0이 아닌 값이면, 새로 저장하는 인덱스로 삽입
+    // 0이 아닌 값이면 새로 저장하는 인덱스의 요소값과 바꿔치기
     public void moveZeroes(int[] nums) {
         int pos = 0;
         for(int i = 0; i < nums.length; i++) {
@@ -31,8 +31,6 @@ class Solution {
         }
     }
     
-
-
     // 순차대로 조회
     // 0 발견, 다음 인덱스의 값과 위치 변경
 
