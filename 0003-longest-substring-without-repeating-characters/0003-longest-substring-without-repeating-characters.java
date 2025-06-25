@@ -6,6 +6,9 @@ class Solution {
     // case: abcabcbb -> abc, a에서 중복된 문자를 조회했을때, substring에 대한 시작 인덱스를 다시 설정
     // case: pwwkew -> pw, wke, w에서 
     // edge case: lopwwkpew -> lopw, wkpe에서 각 substring 이전에 중복된 문자는 제거해야한다.
+
+    // O(2n) -> O(n)
+    // O(k) -> 중복 없는 문자의 수 k (HashSet에 저장하는 값의 개수)
     public int lengthOfLongestSubstring(String s) {
         int n = s.length();
         int left = 0, maxLen = 0;
@@ -14,8 +17,8 @@ class Solution {
             char c = s.charAt(right);
             if (set.contains(c)) {
                 do {
-                    set.remove(s.charAt(left++));
-                } while(set.contains(c));
+                    set.remove(s.charAt(left++)); 
+                } while(set.contains(c)); 
             } else {
                 maxLen = Math.max(maxLen, right - left + 1);
             }
