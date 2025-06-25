@@ -18,7 +18,7 @@ class Solution {
             if (set.contains(c)) {
                 do {
                     set.remove(s.charAt(left++)); 
-                } while(set.contains(c)); 
+                } while(set.contains(c)); // 중복된 문자열이 나타날때까지만 삭제
             } else {
                 maxLen = Math.max(maxLen, right - left + 1);
             }
