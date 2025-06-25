@@ -13,17 +13,41 @@ class Solution {
         int n = s.length();
         int left = 0, maxLen = 0;
         HashSet<Character> set = new HashSet<>();
+        
         for (int right = 0; right < n; right++) {
             char c = s.charAt(right);
-            if (set.contains(c)) {
-                do {
-                    set.remove(s.charAt(left++)); 
-                } while(set.contains(c)); // 중복된 문자열이 나타날때까지만 삭제
-            } else {
-                maxLen = Math.max(maxLen, right - left + 1);
+            
+            // 중복 문자가 있으면 left를 이동시켜 중복 제거
+            while (set.contains(c)) {
+                set.remove(s.charAt(left));
+                left++;
             }
+            
             set.add(c);
+            maxLen = Math.max(maxLen, right - left + 1);
         }
+        
         return maxLen;
     }
+
+    // // 슬라이딩 윈도우 + HashMap (최적화된 버전)
+    // public int lengthOfLongestSubstring(String s) {
+    //     int n = s.length();
+    //     int left = 0, maxLen = 0;
+    //     HashMap<Character, Integer> map = new HashMap<>();
+        
+    //     for (int right = 0; right < n; right++) {
+    //         char c = s.charAt(right);
+            
+    //         // 현재 문자가 윈도우 내에 있으면 left를 바로 이동
+    //         if (map.containsKey(c) && map.get(c) >= left) {
+    //             left = map.get(c) + 1;
+    //         }
+            
+    //         map.put(c, right);
+    //         maxLen = Math.max(maxLen, right - left + 1);
+    //     }
+        
+    //     return maxLen;
+    // }
 }
