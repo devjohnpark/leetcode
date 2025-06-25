@@ -7,8 +7,8 @@ class Solution {
     // case: pwwkew -> pw, wke, w에서 
     // edge case: lopwwkpew -> lopw, wkpe에서 각 substring 이전에 중복된 문자는 제거해야한다.
 
-    // O(2n) -> O(n)
-    // O(k) -> 중복 없는 문자의 수 k (HashSet에 저장하는 값의 개수)
+    // 2n -> O(n)
+    // O(k) < O(n) -> 중복 없는 문자의 수 k (HashSet에 저장하는 값의 개수)
     public int lengthOfLongestSubstring(String s) {
         int n = s.length();
         int left = 0, maxLen = 0;
