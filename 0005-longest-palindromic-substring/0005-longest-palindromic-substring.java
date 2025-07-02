@@ -14,10 +14,11 @@ class Solution {
     // baabc -> baab (c)
     // abb -> bb
     // abbb -> bbb
+    // abbbbaca -> bbbb (aca 포함)
 
     // (4) access: data structure & algorithms
     // 0 ~ n 까지 순회하면서 시작지점을 설정하고 left, right 인덱스를 양쪽 끝까지 이동시키면서 substring을 찾아낸다. 
-    // O(N): 0 ~ n 까지 순회하면서 시작지점을 설저
+    // O(N): 0 ~ n 까지 순회하면서 시작지점을 설정
     // O(N): left, right 인덱스를 양쪽 끝까지 이동시키면서 substring을 찾아냄
     // Time Complexity: O(N^2)
 
@@ -64,9 +65,8 @@ class Solution {
 
     public String longestPalindrome(String s) {
         int len = s.length();
-        if (len <= 1) return s;
         for (int i = 0; i < len - 1; i++) {
-            findPalindromic(s, i, i);
+            findPalindromic(s, i, i); 
             findPalindromic(s, i, i + 1);
         }
         return s.substring(resultLeft, resultLeft + resultLen);
