@@ -14,13 +14,11 @@ class Solution {
         for (int i = 0; i < n; i++) {
             answer[i] = 1;
         }
-        int left = 1;
-        for (int i = 0; i < n; i++) {
+        for (int i = 0, left = 1; i < n; i++) {
             answer[i] *= left; // 현재 요소의 왼쪽 요소 누적 곱
             left *= nums[i]; 
         }
-        int right = 1;
-        for (int i = n-1; i >= 0; i--) {
+        for (int i = n-1, right = 1; i >= 0; i--) {
             answer[i] *= right; // 현재 요소의 오른쪽 요소 누적 곱
             right *= nums[i];
         }
