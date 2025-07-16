@@ -1,36 +1,5 @@
 class Solution {
     // 문제 정의: 주어진 배열에서 가장 빈도수가 높은 요소를 k개 만큼 출력 (각 배열 요소의 개수는 다 다름)
-    // 조건
-    // (1) O(nlogn) 내에 찾아야한다.
-    // (2) 가장 높은 빈도수를 k개 만큼 찾아야한다.
-    // (3) 배열 입력값은 오름차순이 아니라 랜덤이다.
-
-    
-    // 배열 순회: O(n)
-    // 배열 요소 값 별로 O(1) 카운트하기 위해 HashMap에 저장
-    // 카운팅 배열 정렬: O(nlogn)
-    // public int[] topKFrequent(int[] nums, int k) {
-    //     Map<Integer, Integer> freqMap = new HashMap<>();
-    //     for (int num : nums) {
-    //         freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
-    //     }
-
-    //     // 2. Entry를 리스트로 뽑아서 빈도 기준으로 내림차순 정렬
-    //     List<Map.Entry<Integer, Integer>> entryList = new ArrayList<>(freqMap.entrySet()); // Set(키와 값의 쌍)을 리스트로 저장
-    //     entryList.sort((a, b) -> b.getValue() - a.getValue()); // 값 기준 내림차순: O(nlogn)
-
-    //     // 3. 정렬된 리스트 값 중에서 상위 k개 추출
-    //     int[] result = new int[k];
-    //     for (int i = 0; i < k; i++) {
-    //         result[i] = entryList.get(i).getKey();
-    //     }
-
-    //     return result;
-    // }
-
-
-    
-    // 문제 정의: 주어진 배열에서 가장 빈도수가 높은 요소를 k개 만큼 출력 (각 배열 요소의 개수는 다 다름)
     // 조건:
     // (1) O(nlogn) 내에 찾아야한다.
     // (2) 가장 높은 빈도수를 k개 만큼 찾아야한다.
@@ -41,7 +10,7 @@ class Solution {
     // 2. 저장한 배열의 빈도수중에서 가장 높은 값을 k개 만큼 가져와서 출력한다.
 
     // 핵심 알고리즘
-     // 1. 주어진 배열 요소를 순차적으로 조회해서 빈도수를 hashmap<요소 값, 빈도수>를 O(1)으로 저장한다.
+    // 1. 주어진 배열 요소를 순차적으로 조회해서 빈도수를 hashmap<요소 값, 빈도수>를 O(1)으로 저장한다.
     // 2. 빈도수별 숫자를 저장할 ArrayList[]를 생성한다.
     // 3. hashmap에서 값을 가져와서 빈도수에 따라 ArrayList[빈도수]에 추가한다.
     // 4. ArrayList[]에서 끝 리스트부터 탐색해서 k개 만큼 요소값을 가져와서 반환할 배열에 저장한다.
@@ -84,6 +53,25 @@ class Solution {
         // }
         // return result;
     }
+
+    // public int[] topKFrequent(int[] nums, int k) {
+    //     Map<Integer, Integer> freqMap = new HashMap<>();
+    //     for (int num : nums) {
+    //         freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
+    //     }
+
+    //     // 2. Entry를 리스트로 뽑아서 빈도 기준으로 내림차순 정렬
+    //     List<Map.Entry<Integer, Integer>> entryList = new ArrayList<>(freqMap.entrySet()); // Set(키와 값의 쌍)을 리스트로 저장
+    //     entryList.sort((a, b) -> b.getValue() - a.getValue()); // 값 기준 내림차순: O(nlogn)
+
+    //     // 3. 정렬된 리스트 값 중에서 상위 k개 추출
+    //     int[] result = new int[k];
+    //     for (int i = 0; i < k; i++) {
+    //         result[i] = entryList.get(i).getKey();
+    //     }
+
+    //     return result;
+    // }
 
     // // max heap using PriorityQueue
     // public int[] topKFrequent(int[] nums, int k) {
