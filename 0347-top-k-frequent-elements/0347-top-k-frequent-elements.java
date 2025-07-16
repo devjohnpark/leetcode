@@ -28,32 +28,61 @@ class Solution {
     //     return result;
     // }
 
-    //  // use an array for counting bucket
-     public int[] topKFrequent(int[] nums, int k) {
-        // 1. 빈도 계산
-        Map<Integer, Integer> freqMap = new HashMap<>();
-        for (int num : nums)
-            freqMap.put(num, freqMap.getOrDefault(num, 0) + 1); // map에 저장된 값이 없으면 default로 0값 설정 
 
-        // 2. 빈도 수에 따른 버킷 생성 (최대 빈도는 nums.length이므로 배열의 크기는 nums.length + 1)
-        List<Integer>[] buckets = new ArrayList[nums.length + 1];
-        for (int key : freqMap.keySet()) {
-            int freq = freqMap.get(key);
-            if (buckets[freq] == null)
-                buckets[freq] = new ArrayList<>();
-            buckets[freq].add(key); // 빈도수를 인덱스로 하는 배열 요소값 저장
+    
+    // 문제 정의: 주어진 배열에서 가장 빈도수가 높은 요소를 k개 만큼 출력 (각 배열 요소의 개수는 다 다름)
+    // 조건:
+    // (1) O(nlogn) 내에 찾아야한다.
+    // (2) 가장 높은 빈도수를 k개 만큼 찾아야한다.
+    // (3) 배열 입력값은 오름차순이 아니라 랜덤이다.
+
+    // 문제 나눠서 정의
+    // 1. 각 배열 요소 마다 빈도수를 저장해야한다.
+    // 2. 저장한 배열의 빈도수중에서 가장 높은 값을 k개 만큼 가져와서 출력한다.
+
+    // 핵심 알고리즘
+     // 1. 주어진 배열 요소를 순차적으로 조회해서 빈도수를 hashmap<요소 값, 빈도수>를 O(1)으로 저장한다.
+    // 2. 빈도수별 숫자를 저장할 ArrayList[]를 생성한다.
+    // 3. hashmap에서 값을 가져와서 빈도수에 따라 ArrayList[빈도수]에 추가한다.
+    // 4. ArrayList[]에서 끝 리스트부터 탐색해서 k개 만큼 요소값을 가져와서 반환할 배열에 저장한다.
+    public int[] topKFrequent(int[] nums, int k) {
+        int n = nums.length;
+        HashMap<Integer, Integer> freqMap = new HashMap<>();
+        for (int num: nums) {
+            freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
         }
 
-        // 3. 빈도수가 가장 높은 뒤에서부터 조회하며 결과 수집
+        List<Integer>[] freqList = new ArrayList[n + 1]; // n개 까지 빈도수 가능하므로 하나더 크게 생성
+        // 해시맵에서 키와 값을 둘다 가져와야한다.
+        // 키를 먼저 가져와서 키로 값을 가져온다.
+        for (int freqKey: freqMap.keySet()) {
+            int freqValue = freqMap.get(freqKey);
+            if (freqList[freqValue] == null) { 
+                freqList[freqValue] = new ArrayList<>(); // 저장할 리스트 초기화
+            }
+            freqList[freqValue].add(freqKey);
+        }
+
+        // 3. 빈도수가 가장 높은 뒤에서부터 조회하며 반환할 결과값 저장
         List<Integer> result = new ArrayList<>();
-        for (int i = buckets.length - 1; i >= 0 && result.size() < k; i--) {
-            if (buckets[i] != null) {
-                result.addAll(buckets[i]);
+        for (int i = freqList.length - 1; i >= 0 && result.size() < k; i--) {
+            if (freqList[i] != null) {
+                result.addAll(freqList[i]);
             }
         }
 
-        // 4. 결과를 int[] 배열로 변환해서 반환
         return result.stream().mapToInt(i -> i).limit(k).toArray(); 
+        // int[] result = new int[k];
+        // int idx = 0;
+        // for (int i = freqList.length - 1; i >= 0; i--) {
+        //     if (freqList[i] != null) {
+        //         for (int num: freqList[i]) {
+        //             if (idx == k) break;
+        //             result[idx++] = num;
+        //         }
+        //     }
+        // }
+        // return result;
     }
 
     // // max heap using PriorityQueue
