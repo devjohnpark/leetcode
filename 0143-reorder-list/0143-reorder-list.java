@@ -42,14 +42,7 @@ class Solution {
     // right.next = left.next;
     // left.next = right;
     // left = next;
-
-    // 1 2 3 4 5 6
-    // 1 6 2 3 4 5
-    // 1 6 2 5 3 4
-    // public void reorderList(ListNode head) {
-    //     // preMiddle.next
-    // }
-
+    
     // // 1. using stack for tracking the last node
     public void reorderList(ListNode head) {
         if (head == null || head.next == null) return;
@@ -62,22 +55,7 @@ class Solution {
             cur = cur.next;
         }
 
-        // 2. 스택의 개수만큼 순회하면서 병합
-        // left, right
-        // right.next = left.next
-        // left.next = right
-        // left = left.next
-
-        // 7 -> 7/2 = 3, 3번만에 가능
-        // 1 2 3 4 5 6 7, 1 7
-        // 1 7 2 3 4 5 6, 2 6
-        // 1 7 2 6 3 4 5, 3 5
-        // 1 7 2 6 3 5 4
-
-        // 4 -> 4/2 = 2, 1번만에 가능
-        // 1 2 3 4 
-        // 1 4 2 3
-
+        // 2. 리스트 노드 개수의 반만 순회하면서 병합
         int size = stack.size();
         ListNode left = head; 
         for (int i = 0; i < size / 2; i++) {
@@ -89,7 +67,7 @@ class Solution {
         }
 
         // 주의: 마지막 노드 처리 (중간 노드의 next를 끊음, 중간노드가 맨 끝으로 감) 
-        left.next = null; // 3 -> null
+        left.next = null;
     }
 }
 
