@@ -36,14 +36,10 @@ class Solution {
     // 1 2 3 4 7 6 5 -> reverse -> 고정된 오른쪽 포인터가 아니라 7 -> 6 ->5 이동시킬수있다. 따라서 오른쪽 포인터의 트래킹이 가능하다.
     // 중간 노드를 찾기 위해 2배 빠른 fast 포인터와 1배수 속도인 slow포인터를 사용해서 fast.next가 null일때 slow는 중간 포인터르 가리킴
     // 그다움 reverse를 하고나서 탐색하며 병합한다.
+    // L6 -> L5 -> L4 순으로 탐색해야되기 때문에, 1 2 3 4 5 6에서 중간 이후의 노드는 6 5 4 순으로 변경해야한다. 즉. 1 2 3 6 5 4가 되어야한다.
+    // 그러면 1과 6을 시작으로 두개의 포인터로 이동시키며 재정렬하면, 1 6 2 5 3 4가 된다.
 
-    // right = stack.pop();
-    // next = left.next;
-    // right.next = left.next;
-    // left.next = right;
-    // left = next;
-    
-    // // 1. using stack for tracking the last node
+    // 1. using stack for tracking the last node
     public void reorderList(ListNode head) {
         if (head == null || head.next == null) return;
         
@@ -68,7 +64,61 @@ class Solution {
 
         // 주의: 마지막 노드 처리 (중간 노드의 next를 끊음, 중간노드가 맨 끝으로 감) 
         left.next = null;
-    }
+    }    
+
+    // // 1. 중간 노드 찾기
+    // // 2. 연결리스트 중간 후반불ㄹ 뒤집기
+    // // 3. 두 연결리스트를 재정렬
+    // public void reorderList(ListNode head) {
+    //     if (head == null || head.next == null) return;
+    //     ListNode midNode = findMidNode(head);
+    //     ListNode midNextNode = midNode.next;
+    //     midNode.next = null; // [1 2 3 4], [5, 6]으로 연결리스트 분리 (분리 안하면 맨 마지막 노드가될 4번째 노드가 이전처럼 5번째 노드를 참조한다.)
+    //     merge(head, reverse(midNextNode));
+    // }
+
+    // // 1. 중간 노드 찾기
+    // // [1, 2, 3, 4, 5, 6] -> [4]
+    // // [1, 2, 3, 4, 5, 6, 7] -> [4]
+    // private ListNode findMidNode(ListNode head) {
+    //     ListNode slow = head, fast = head;
+    //     while (fast != null && fast.next != null) {
+    //         fast = fast.next.next;
+    //         slow = slow.next;
+    //     }
+    //     return slow;
+    // }
+
+    // // 2. 연결리스트 뒤집기
+    // // [1, 2, 3, 4, 5, 6] -> [1 2 3 4], [6, 5]
+    // // [1, 2, 3, 4, 5, 6, 7] -> [1 2 3 4], [7, 6, 5]
+    // private ListNode reverse(ListNode head) { // slow.next
+    //     ListNode prev = null, curr = head;
+    //     // head.next = null;  // [1 2 3 4], [5, 6]으로 연결리스트 분리 (분리 안하면 맨 마지막 노드가될 4번째 노드가 이전처럼 5번째 노드를 참조한다.)
+    //     while (curr != null) {
+    //         ListNode nextTemp = curr.next;
+    //         curr.next = prev;
+    //         prev = curr;
+    //         curr = nextTemp;
+    //     }
+    //     return prev;
+    // }
+
+    // // 3. 재정렬
+    // // [1 2 3 4], [6, 5] -> [1, 6, 2, 5, 3, 4]
+    // // [1 2 3 4], [7, 6, 5] -> [1, 7, 2, 6, 3, 5, 4]
+    // private void merge(ListNode l1, ListNode l2) {
+    //     while (l2 != null) {
+    //         ListNode firstNextTemp = l1.next;
+    //         ListNode seconNextTemp = l2.next;
+
+    //         l1.next = l2;
+    //         l2.next = firstNextTemp;
+
+    //         l1 = firstNextTemp;
+    //         l2 = seconNextTemp;
+    //     }
+    // }
 }
 
 
