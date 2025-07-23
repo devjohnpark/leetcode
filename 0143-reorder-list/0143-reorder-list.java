@@ -94,7 +94,6 @@ class Solution {
     // // [1, 2, 3, 4, 5, 6, 7] -> [1 2 3 4], [7, 6, 5]
     // private ListNode reverse(ListNode head) { // slow.next
     //     ListNode prev = null, curr = head;
-    //     // head.next = null;  // [1 2 3 4], [5, 6]으로 연결리스트 분리 (분리 안하면 맨 마지막 노드가될 4번째 노드가 이전처럼 5번째 노드를 참조한다.)
     //     while (curr != null) {
     //         ListNode nextTemp = curr.next;
     //         curr.next = prev;
