@@ -16,30 +16,52 @@ class Solution {
     // 2. [1, 2, 3, 4, 5] 스택에 push -> pop을 n번하면 4번째 노드 제거 가능
     // 3. 끝에서 n번재까지 pop 수행후 n+1 번째 노드를 가져와서 next 필드로 n-1번째 노드와 연결
     // 4. 만일 노드의 개수가 n과 동일할 경우에는 head 삭제해야하므로, head = head.next 저장한후에 head.next 반환
+    // public ListNode removeNthFromEnd(ListNode head, int n) {
+    //     Stack<ListNode> stack = new Stack<>();
+    //     ListNode curr = head;
+
+    //     while (curr != null) {
+    //         stack.push(curr);
+    //         curr = curr.next;
+    //     }
+
+    //     // 1. 노드의 개수가 n과 동일할 경우에는 head 삭제해야하므로, head = head.next 저장한후에 head.next 반환
+    //     if (n == stack.size()) {
+    //         return head.next; // head를 삭제해야 하는 경우
+    //     }
+
+    //     // 2. 끝에서 n번재까지 노드까지 pop
+    //     for (int i = 0; i < n; i++) {
+    //         stack.pop();
+    //     }
+
+    //     // 3. 끝에서 n+1 번째 노드를 가져와서 next 필드로 n-1번째 노드와 연결
+    //     ListNode prev = stack.peek();
+    //     prev.next = prev.next.next;
+
+    //     return head;
+    // }
+
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        Stack<ListNode> stack = new Stack<>();
-        ListNode curr = head;
-
-        while (curr != null) {
-            stack.push(curr);
-            curr = curr.next;
-        }
-
-        // 1. 노드의 개수가 n과 동일할 경우에는 head 삭제해야하므로, head = head.next 저장한후에 head.next 반환
-        if (n == stack.size()) {
-            return head.next; // head를 삭제해야 하는 경우
-        }
-
-        // 2. 끝에서 n번재까지 노드까지 pop
+        ListNode fast = head, slow = head;
         for (int i = 0; i < n; i++) {
-            stack.pop();
+            fast = fast.next;
+        }
+        
+        // n이 연결리스트의 길이와 같으면 head 삭제
+        if (fast == null) {
+            return head.next; 
         }
 
-        // 3. 끝에서 n+1 번째 노드를 가져와서 next 필드로 n-1번째 노드와 연결
-        ListNode prev = stack.peek();
-        prev.next = prev.next.next;
+        // slow는 삭제할 노드의 이전노드로 업데이트
+        while (fast.next != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+
+        // 삭제할 노드를 건너띠고 연결
+        slow.next = slow.next.next; 
 
         return head;
     }
-
 }
