@@ -38,7 +38,8 @@ class Solution {
             int v2 = l2 != null ? l2.val : 0;
             int sum = v1 + v2 + carry;
             carry = sum / 10;
-            cur.next = new ListNode(sum % 10);
+            int digit = sum % 10;
+            cur.next = new ListNode(digit);
             cur = cur.next;
             if (l1 != null) l1 = l1.next;
             if (l2 != null) l2 = l2.next;
