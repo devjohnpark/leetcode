@@ -11,8 +11,6 @@
  // 문제 정의: 짝수 인덱스인 노드를 연결하고 홀수 인덱스인 노드를 연결
  // 시간 복잡도: O(N)
  // 공간 복잡도: O(1)
- // 문제 풀이
- // 1. 
 class Solution {
     public ListNode oddEvenList(ListNode head) {
         if (head == null || head.next == null) return head;
