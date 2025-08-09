@@ -37,8 +37,8 @@ class Solution {
         }
 
         // 3. 재연결
-        leftPrev.next = prev; // 1 -> 4
-        leftNode.next = cur; // 2 -> 5
+        leftPrev.next = prev; // left 이전 노드와 right 노드 연결 (1 -> 4)
+        leftNode.next = cur; // left 노드와 right 이후 노드 연결 (2 -> 5)
 
         return dummy.next;
     }
