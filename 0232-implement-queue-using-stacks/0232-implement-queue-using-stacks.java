@@ -22,23 +22,22 @@ class MyQueue {
     
     public int pop() {
         // output stack 비었으면, input stack에서 모조리 데이터 가져오기
-        if (output.isEmpty()) {
-            while(!input.isEmpty()) {
-                output.push(input.pop());
-            }
-        }
-
+        inputToOutput();
         // output stack 안비었으면, 그대로 pop()
         return output.pop();
     }
     
     public int peek() {
+        inputToOutput();
+        return output.peek();
+    }
+
+    private void inputToOutput() {
         if (output.isEmpty()) {
             while(!input.isEmpty()) {
                 output.push(input.pop());
             }
-        }
-        return output.peek();
+        }        
     }
     
     public boolean empty() {
