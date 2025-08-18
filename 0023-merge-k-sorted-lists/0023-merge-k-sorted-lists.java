@@ -1,0 +1,47 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    // 시간복잡도: 10000 -> O(nlogn) 이내
+
+    // 부루트포스 문제 풀이
+    // 리스트들을 모두 순회하면서 순차적 병합 -> ListNode[] 순회 x 각 리스트 순회 = O(KN)
+
+    // 핵심 문제 풀이
+    // 1) 리스트들을 분할 정복의 병합 정렬로 O(nlogk)으로 풀수있다.
+    // 2) 리스트들의 값을 배열로 저장하고 정렬해서 O(nlogk)으로 풀수있다. 그러나 이미 정렬되어있는걸 정렬 알고리즘을 쓰면 손해이다.
+    
+    // 3) 각 리스트들의 값이 이미 오름차순으로 정렬되어 있는 것을 이용해서 최소힙을 사용할수있다.
+    // 각 리스트의 head를 우선순위 큐(최소힙)에 넣고, 우선순위 큐에서 노드를 O(log k)에 가져와서 반환할 연결리스트에 추가한다. 그러면 총 O(Nlogk)이 걸린다.
+    public ListNode mergeKLists(ListNode[] lists) {
+        if (lists == null || lists.length == 0) return null;
+
+        PriorityQueue<ListNode> pq = new PriorityQueue<>((a, b) -> a.val - b.val);
+
+        // 각 리스트의 head만 힙에 넣기
+        for (ListNode head : lists) {
+            if (head != null) pq.offer(head);
+        }
+
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
+
+        while (!pq.isEmpty()) {
+            ListNode node = pq.poll(); // 현재 k개 중 최소값을 가진 노드 O(log k)
+            tail.next = node; // 결과 리스트에 연결
+            tail = tail.next; 
+
+            if (node.next != null) {  // 같은 리스트의 다음 노드를 힙에
+                pq.offer(node.next); // 각 리스트의 다음 노드 삽입
+            }
+        }
+        return dummy.next;
+    }
+}
