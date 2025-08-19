@@ -27,10 +27,9 @@ class Solution {
         );
 
         for (int[] p : points) {
-            maxHeap.offer(p); // 힙에 추가
-            if (maxHeap.size() > k) {
-                maxHeap.poll(); // 가장 먼 점 제거
-            }
+            // maxHeap.offer(p); // 힙에 추가
+            maxHeap.add(p);
+            if (maxHeap.size() > k) maxHeap.poll(); // 가장 먼 점 제거
         }
         return maxHeap.toArray(new int[0][0]);
         // // 힙에 남은 k개의 점 반환
