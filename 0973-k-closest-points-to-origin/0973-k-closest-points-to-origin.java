@@ -32,12 +32,12 @@ class Solution {
                 maxHeap.poll(); // 가장 먼 점 제거
             }
         }
-
-        // 힙에 남은 k개의 점 반환
-        int[][] result = new int[k][2];
-        for (int i = 0; i < k; i++) {
-            result[i] = maxHeap.poll();
-        }
-        return result;
+        return maxHeap.toArray(new int[0][0]);
+        // // 힙에 남은 k개의 점 반환
+        // int[][] result = new int[k][2];
+        // for (int i = 0; i < k; i++) {
+        //     result[i] = maxHeap.poll();
+        // }
+        // return result;
     }
 }
