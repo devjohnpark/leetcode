@@ -16,7 +16,7 @@ class Solution {
     // }
 
     // 문제 풀이 2
-    // 우선순위 큐: 삽입 O(logn)
+    // 우선순위 큐: “가까운 k개만” 필요하다면 우선순위 큐가 더 적합 -> 시간 복잡도가 O(nlogk)이 나오기때문이다. 아래 코드 참고
     public int[][] kClosest(int[][] points, int k) {
        // 최대 힙: 거리가 큰 순으로 정렬
         PriorityQueue<int[]> maxHeap = new PriorityQueue<>(
@@ -25,14 +25,13 @@ class Solution {
                 a[0] * a[0] + a[1] * a[1]
             )
         );
-
         for (int[] p : points) {
-            // maxHeap.offer(p); // 힙에 추가
-            maxHeap.add(p);
+            maxHeap.offer(p); // 힙에 추가
+            // 힙 사이즈가 k를 넘어가면 삭제시켜서 시간복잡도를 O(nlogk)으로 유지
             if (maxHeap.size() > k) maxHeap.poll(); // 가장 먼 점 제거
         }
-        return maxHeap.toArray(new int[0][0]);
-        // // 힙에 남은 k개의 점 반환
+        return maxHeap.toArray(new int[0][0]); // 힙에 남은 k개의 점 반환 (원점에서 거리가 작은순)
+        // 힙에 남은 k개의 점 반환 
         // int[][] result = new int[k][2];
         // for (int i = 0; i < k; i++) {
         //     result[i] = maxHeap.poll();
