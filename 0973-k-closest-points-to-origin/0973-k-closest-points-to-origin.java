@@ -31,12 +31,17 @@ class Solution {
             if (maxHeap.size() > k) maxHeap.remove(); // 저장한 크기가 k개 보다 크면 최대값을 삭제
         }
 
-        // // k개 만큼 저장하는 배열 (오름 차순 저장을 안해도됨)
-        // int[][] result = new int[k][2];
-        // for (int i = 0; i < k; i++) {
-        //     result[i] = maxHeap.remove(); 
-        // }
-        // return result;
-        return maxHeap.toArray(new int[0][0]);
+        // k개 만큼 저장하는 배열 (오름 차순 저장을 안해도됨)
+        int[][] result = new int[k][2];
+        for (int i = 0; i < k; i++) {
+            result[i] = maxHeap.remove(); 
+        }
+        return result;
+
+        // 컬렉션의 모든 요소를 주어진 타입의 배열로 반환
+        // 반환 타입은 int[][]로 지정
+        // 정렬되어서 반환되는 것이 아니라, 단지 힙에 들어있는 원소들을 배열로 모은 것
+        // new int[0][0]: 타입만 알려주고 크기는 모를 때 유용, 여기서는 반환할 배열이 int[k][2] 이므로 이렇게 지정
+        // return maxHeap.toArray(new int[k][2]); 
     }
 }
