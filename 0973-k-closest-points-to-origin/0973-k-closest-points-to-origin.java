@@ -31,11 +31,12 @@ class Solution {
             if (maxHeap.size() > k) maxHeap.remove(); // 저장한 크기가 k개 보다 크면 최대값을 삭제
         }
 
-        // k개 만큼 저장하는 배열 (오름 차순 저장을 안해도됨)
-        int[][] result = new int[k][2];
-        for (int i = 0; i < k; i++) {
-            result[i] = maxHeap.remove(); 
-        }
-        return result;
+        // // k개 만큼 저장하는 배열 (오름 차순 저장을 안해도됨)
+        // int[][] result = new int[k][2];
+        // for (int i = 0; i < k; i++) {
+        //     result[i] = maxHeap.remove(); 
+        // }
+        // return result;
+        return maxHeap.toArray(new int[0][0]);
     }
 }
