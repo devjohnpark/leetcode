@@ -43,6 +43,8 @@ class Solution {
         // 정렬되어서 반환되는 것이 아니라, 단지 힙에 들어있는 원소들을 배열로 모은 것이다. 
         // PriorityQueue는 Object[]로 저장하기 때문에 배열로 변환시에 O(k)가 걸리지만, 삭제 연산하면 O(klogk)가 걸린다.
         // new int[0][0]: 타입만 알려주고 크기는 모를 때 유용, 여기서는 반환할 배열이 int[k][2] 이므로 이렇게 지정
-        return maxHeap.toArray(new int[k][2]); // O(k)
+        // int[][] 배열을 할당 → 공간 O(k)
+        // int[] 참조 복사 -> 시간 O(k)
+        return maxHeap.toArray(new int[k][2]); 
     }
 }
