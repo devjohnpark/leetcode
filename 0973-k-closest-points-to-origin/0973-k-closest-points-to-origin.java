@@ -9,7 +9,7 @@ class Solution {
     //         int distB = b[0] * b[0] + b[1] * b[1];
     //         return Integer.compare(distA, distB);
     //     });
-    //     // int[k][2] 배열을 할당 → 공간 O(k)
+    //     // int[k][2] 배열을 할당 -> 공간 O(k)
     //     // k개의 int[] 참조 복사 -> 시간 O(k)
     //     return Arrays.copyOfRange(points, 0, k); // O(k) 복사 비용 발생
     // }
