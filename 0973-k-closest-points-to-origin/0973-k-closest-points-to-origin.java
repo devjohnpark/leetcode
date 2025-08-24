@@ -11,7 +11,7 @@ class Solution {
     //     });
     //     // int[k][2] 배열을 할당 -> 공간 O(k)
     //     // k개의 int[] 참조 복사 -> 시간 O(k)
-    //     return Arrays.copyOfRange(points, 0, k); // O(k) 복사 비용 발생
+    //     return Arrays.copyOfRange(points, 0, k); 
     // }
 
     // 핵심 문제 풀이
