@@ -10,7 +10,7 @@ class Solution {
         HashMap<Character, Integer> map = new HashMap<>();
          for (int i = 0; i < stones.length(); i++) {
             char c = stones.charAt(i);
-            map.put(c, map.getOrDefault(c, 0) + 1);
+            map.put(c, map.getOrDefault(c, 0) + 1); // 0으로 초기화 + 1
         }
         int sum = 0;
         for (int i = 0; i < jewels.length(); i++) {
