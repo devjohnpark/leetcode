@@ -14,15 +14,19 @@ class Node {
         this.next = null;
     }
 }
+
+// 입력크기: 1000000 
+// map 1000개이면, 최대 하나의 연결리스트에 1000개가 저장될수있다.
 class MyHashMap {
     private Node[] map;
 
     private int hash(int key) {
-        return key % 1000;
+        return key % 1000; 
     }
 
     public MyHashMap() {
         map = new Node[1000];
+        // head를 가리키는 더미 노드 초기화
         for (int i = 0; i < 1000; i++) {
             map[i] = new Node(-1, -1);
         }
@@ -33,20 +37,20 @@ class MyHashMap {
         // hash 함수로 돌린다.
         // 시작 노드부터 순회해서 key가 있는지 찾는다.
         // 없으면 노드를 생성하고 마지막 노드에 연결시킨다.
-        Node cur = map[hash(key)];
+        Node cur = map[hash(key)]; 
         while (cur.next != null) {
-            if (key == cur.next.key) {
+            if (key == cur.next.key) { // 삽입할 이전 노드까지 순회
                 cur.next.val = value;
                 return;
             }
             cur = cur.next;
         }
-        cur.next = new Node(key, value);
+        cur.next = new Node(key, value); // 마지막 노드에 연결
     }
     
     public int get(int key) {
         // 맵핑되는 값 없으면 -1 반환
-        Node cur = map[hash(key)].next;
+        Node cur = map[hash(key)].next; // 더미 노드의 다음 노드로 지정
         while (cur != null) {
             if (key == cur.key) {
                 return cur.val;
@@ -60,7 +64,7 @@ class MyHashMap {
         // 매핑되는 키 있으면 삭제
         Node cur = map[hash(key)];
         while (cur.next != null) {
-            if (key == cur.next.key) {
+            if (key == cur.next.key) { // 삭제할 이전 노드까지 순회
                 cur.next = cur.next.next;
                 return;
             }
@@ -69,7 +73,7 @@ class MyHashMap {
     }
 }
 
-// juse use array
+// juse use array (is not hashmap)
 // class MyHashMap {
 //     private int[] map;
 
