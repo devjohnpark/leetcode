@@ -1,0 +1,21 @@
+class Solution {
+    // 문제 정의: jewels의 문자가 stones에 있는 동일 문자가 몇개가 있는지 카운팅
+    // 입력 크기: 50 -> O(N)
+    // 부루트포스
+    // jewels x stones = O(N^2)
+    // 핵심 문제 풀이
+    // stones 배열을 순회하면서 해시맵에 문자별 카운팅한 값을 저장
+    // jewels is key로 해시맵에 접근해서 카운팅한 값 가져와서 최종값에 더하기
+    public int numJewelsInStones(String jewels, String stones) {
+        HashMap<Character, Integer> map = new HashMap<>();
+         for (int i = 0; i < stones.length(); i++) {
+            char c = stones.charAt(i);
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+        int sum = 0;
+        for (int i = 0; i < jewels.length(); i++) {
+            sum += map.getOrDefault(jewels.charAt(i), 0);
+        }
+        return sum;
+    }
+}
