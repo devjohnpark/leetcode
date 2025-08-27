@@ -16,7 +16,7 @@ class Node {
 }
 
 // 입력크기: 1000001 
-// map 1000개이면, 평균 연결리스트에 약 1000개가 저장될수있다.
+// bucket 1000개이면, 평균 연결리스트에 약 1000개가 저장될수있다.
 class MyHashMap {
     private Node[] bucket;
 
@@ -28,7 +28,7 @@ class MyHashMap {
         bucket = new Node[1000];
         // head를 가리키는 더미 노드 초기화
         for (int i = 0; i < 1000; i++) {
-            bucket[i] = new Node(-1, -1);
+            bucket[i] = new Node(-1, -1); // 입력 상수가 0이상이므로 -1로 초기화
         }
     }
     
