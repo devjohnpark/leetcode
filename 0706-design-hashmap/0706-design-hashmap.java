@@ -18,17 +18,17 @@ class Node {
 // 입력크기: 1000001 
 // map 1000개이면, 평균 연결리스트에 약 1000개가 저장될수있다.
 class MyHashMap {
-    private Node[] map;
+    private Node[] bucket;
 
     private int hash(int key) {
         return key % 1000; 
     }
 
     public MyHashMap() {
-        map = new Node[1000];
+        bucket = new Node[1000];
         // head를 가리키는 더미 노드 초기화
         for (int i = 0; i < 1000; i++) {
-            map[i] = new Node(-1, -1);
+            bucket[i] = new Node(-1, -1);
         }
     }
     
@@ -37,7 +37,7 @@ class MyHashMap {
         // hash 함수로 돌린다.
         // 시작 노드부터 순회해서 key가 있는지 찾는다.
         // 없으면 노드를 생성하고 마지막 노드에 연결시킨다.
-        Node cur = map[hash(key)]; 
+        Node cur = bucket[hash(key)]; 
         while (cur.next != null) {
             if (key == cur.next.key) { // 삽입할 이전 노드까지 순회
                 cur.next.val = value;
@@ -50,7 +50,7 @@ class MyHashMap {
     
     public int get(int key) {
         // 맵핑되는 값 없으면 -1 반환
-        Node cur = map[hash(key)].next; // 더미 노드의 다음 노드로 지정
+        Node cur = bucket[hash(key)].next; // 더미 노드의 다음 노드로 지정
         while (cur != null) {
             if (key == cur.key) {
                 return cur.val;
@@ -62,7 +62,7 @@ class MyHashMap {
     
     public void remove(int key) {
         // 매핑되는 키 있으면 삭제
-        Node cur = map[hash(key)];
+        Node cur = bucket[hash(key)];
         while (cur.next != null) {
             if (key == cur.next.key) { // 삭제할 이전 노드까지 순회
                 cur.next = cur.next.next;
@@ -75,28 +75,28 @@ class MyHashMap {
 
 // juse use array (is not hashmap)
 // class MyHashMap {
-//     private int[] map;
+//     private int[] bucket;
 
 //     public MyHashMap() {
-//         map = new int[1000001];
+//         bucket = new int[1000001];
 //         Arrays.fill(map, -1); // for 문 보다 속도 빠름
 //         // for (int i = 0; i < 1000001; i++) 
-//         //     map[i] = -1;
+//         //     bucket[i] = -1;
 //     }
     
 //     public void put(int key, int value) {
 //         // 키 존재하면 값 없데이트
-//         map[key] = value;
+//         bucket[key] = value;
 //     }
     
 //     public int get(int key) {
 //         // 맵핑되는 값 없으면 -1 반환
-//         return map[key];
+//         return bucket[key];
 //     }
     
 //     public void remove(int key) {
 //         // 매핑되는 키 있으면 삭제
-//         map[key] = -1;
+//         bucket[key] = -1;
 //     }
 // }
 
