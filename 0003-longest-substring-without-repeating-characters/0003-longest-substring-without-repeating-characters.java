@@ -53,7 +53,9 @@ class Solution {
             char c = s.charAt(right);
             Integer idx = map.get(c);
             if (idx != null && idx >= left) {
-                // 구간 업데이트, rigth가 아니라 hashmap에 중복 저장된 인덱스의 바로 다음 인덱스부터 left로 시작해야한다. left = right (x)
+                // 구간 업데이트
+                // rigth가 아니라 hashmap에 중복 저장된 인덱스의 바로 다음 인덱스부터 left로 시작해야한다. left = right (x)
+                // ex) pwewki에서 3번 인덱스 w 중복될때, e부터 시작해야함
                 left = idx + 1;
             } 
             map.put(c, right); // 다음 구간에서 중복되는 값 찾기 위해 저장
