@@ -30,33 +30,13 @@ class Solution {
     //     return maxLen;
     // }
 
-    // // 슬라이딩 윈도우 + HashMap (최적화된 버전)
-    // public int lengthOfLongestSubstring(String s) {
-    //     int n = s.length();
-    //     int left = 0, maxLen = 0;
-    //     HashMap<Character, Integer> map = new HashMap<>();
-        
-    //     for (int right = 0; right < n; right++) {
-    //         char c = s.charAt(right);
-            
-    //         // 현재 문자가 윈도우 내에 있으면 left를 바로 이동
-    //         if (map.containsKey(c) && map.get(c) >= left) {
-    //             left = map.get(c) + 1;
-    //         }
-            
-    //         map.put(c, right);
-    //         maxLen = Math.max(maxLen, right - left + 1);
-    //     }
-        
-    //     return maxLen;
-    // }
-
     // 문제 정의: 주어진 문자여에서 중복되지 않는 문자로 구성된 가장긴 substring을 구해라. -> 연속된 문자열에서 동일한 문자가 있으면 안된다.
     // 시간복잡도: 50000이므로 O(nlogn) 이내로 풀어야한다.
     // 부르트 포스
     // 문자열의 문자를 순회중에 
 
     // 핵심 문제 풀이
+    // 슬라이딩 윈도우 + HashMap (최적화된 버전)
     // 문자열 구간 지정
     // 중복 확인을 위해 문자를 순회하면서 hashmap에 <문자, 인덱스> 저장
     // 오른쪽 포인터를 이동하면서 hashmap에서 중복되는 문자가 있는지 확인
@@ -73,8 +53,7 @@ class Solution {
             char c = s.charAt(right);
             Integer idx = map.get(c);
             if (idx != null && idx >= left) {
-                // 구간 업데이트, rigth가 아니라 hashmap에 중복 저장된 인덱스의 바로 다음 인덱스부터 left로 시작해야한다.
-                // left = right;
+                // 구간 업데이트, rigth가 아니라 hashmap에 중복 저장된 인덱스의 바로 다음 인덱스부터 left로 시작해야한다. left = right (x)
                 left = idx + 1;
             } 
             map.put(c, right); // 다음 구간에서 중복되는 값 찾기 위해 저장
@@ -82,13 +61,4 @@ class Solution {
         }
         return maxLen;
     }
-
-
-
-
-
-
-
-
-
 }
