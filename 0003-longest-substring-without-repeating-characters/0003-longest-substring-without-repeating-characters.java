@@ -51,11 +51,6 @@ class Solution {
     //     return maxLen;
     // }
 
-
-
-
-
-
     // 문제 정의: 주어진 문자여에서 중복되지 않는 문자로 구성된 가장긴 substring을 구해라. -> 연속된 문자열에서 동일한 문자가 있으면 안된다.
     // 시간복잡도: 50000이므로 O(nlogn) 이내로 풀어야한다.
     // 부르트 포스
@@ -75,7 +70,6 @@ class Solution {
         int left = 0;
         int maxLen = 1;
         for (int right = 0; right < length; right++) {
-            // maxLen = Math.max(maxLen, right - left + 1); 
             char c = s.charAt(right);
             Integer idx = map.get(c);
             if (idx != null && idx >= left) {
@@ -83,9 +77,8 @@ class Solution {
                 // left = right;
                 left = idx + 1;
             } 
-            // 다음 구간에서 중복되는 값 찾기 위해 저장
-            map.put(c, right);
-            maxLen = Math.max(maxLen, right - left + 1); 
+            map.put(c, right); // 다음 구간에서 중복되는 값 찾기 위해 저장
+            maxLen = Math.max(maxLen, right - left + 1); // 문자열 길이 업데이트
         }
         return maxLen;
     }
