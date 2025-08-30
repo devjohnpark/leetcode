@@ -11,7 +11,7 @@ class Solution {
 
     // 핵심 알고리즘
     // 1. 주어진 배열 요소를 순차적으로 조회해서 빈도수를 hashmap<요소 값, 빈도수>를 O(1)으로 저장한다.
-    // 2. 빈도수별 숫자를 저장할 ArrayList[]를 생성한다.
+    // 2. 버킷 정렬을 사용해서 빈도수를 인덱스로 저장하기 위한 숫자를 저장할 ArrayList[]를 생성한다.
     // 3. hashmap에서 값을 가져와서 빈도수에 따라 ArrayList[빈도수]에 추가한다.
     // 4. ArrayList[]에서 끝 리스트부터 탐색해서 k개 만큼 요소값을 가져와서 반환할 배열에 저장한다.
     public int[] topKFrequent(int[] nums, int k) {
@@ -21,14 +21,13 @@ class Solution {
             freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
         }
 
-        List<Integer>[] freqList = new ArrayList[n + 1]; // n개 까지 빈도수 가능하므로 하나더 크게 생성
-        // 해시맵에서 키와 값을 둘다 가져와야한다.
-        // 키를 먼저 가져와서 키로 값을 가져온다.
         // 버킷 정렬 (Bucket Sort): 빈도수를 인덱스로 저장하기 -> 평균적으로 O(n)
-        for (int freqKey: freqMap.keySet()) {
-            int freqValue = freqMap.get(freqKey);
+        // 동일 빈도수가 있으므로 리스트 배열로 저장
+        List<Integer>[] freqList = new ArrayList[n + 1]; // n개 까지 빈도수 가능하므로 하나더 크게 생성
+        for (int freqKey: freqMap.keySet()) { // 해시맵에서 키와 값을 둘다 가져와야한다.
+            int freqValue = freqMap.get(freqKey); // 키를 먼저 가져와서 키로 값을 가져온다.
             if (freqList[freqValue] == null) { 
-                freqList[freqValue] = new ArrayList<>(); 
+                freqList[freqValue] = new ArrayList<>();  
             }
             freqList[freqValue].add(freqKey);
         }
@@ -37,10 +36,13 @@ class Solution {
         List<Integer> result = new ArrayList<>();
         for (int i = freqList.length - 1; i >= 0 && result.size() < k; i--) {
             if (freqList[i] != null) {
-                result.addAll(freqList[i]);
+                result.addAll(freqList[i]); 
             }
         }
 
+        // stream(): List<Integer> → Stream<Integer> 변환
+        // mapToInt(i -> i): Stream<Integer> → IntStream (Integer 객체를 int 값으로 언박싱)
+        // toArray(): IntStream을 int[] 배열로 변환
         return result.stream().mapToInt(i -> i).limit(k).toArray(); 
         // int[] result = new int[k];
         // int idx = 0;
