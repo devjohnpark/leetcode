@@ -24,10 +24,11 @@ class Solution {
         List<Integer>[] freqList = new ArrayList[n + 1]; // n개 까지 빈도수 가능하므로 하나더 크게 생성
         // 해시맵에서 키와 값을 둘다 가져와야한다.
         // 키를 먼저 가져와서 키로 값을 가져온다.
+        // 버킷 정렬 (Bucket Sort): 빈도수를 인덱스로 저장하기 -> 평균적으로 O(n)
         for (int freqKey: freqMap.keySet()) {
             int freqValue = freqMap.get(freqKey);
             if (freqList[freqValue] == null) { 
-                freqList[freqValue] = new ArrayList<>(); // 저장할 리스트 초기화
+                freqList[freqValue] = new ArrayList<>(); 
             }
             freqList[freqValue].add(freqKey);
         }
@@ -93,6 +94,6 @@ class Solution {
     //     }
 
     //     return res;
-    // }
 
+    // }
 }
