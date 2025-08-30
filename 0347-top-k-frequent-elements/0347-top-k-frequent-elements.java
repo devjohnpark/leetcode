@@ -14,49 +14,45 @@ class Solution {
     // 2. 빈도수별 숫자를 저장할 ArrayList[]를 생성한다.
     // 3. hashmap에서 값을 가져와서 빈도수에 따라 ArrayList[빈도수]에 추가한다.
     // 4. ArrayList[]에서 끝 리스트부터 탐색해서 k개 만큼 요소값을 가져와서 반환할 배열에 저장한다.
+    public int[] topKFrequent(int[] nums, int k) {
+        int n = nums.length;
+        HashMap<Integer, Integer> freqMap = new HashMap<>();
+        for (int num: nums) {
+            freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
+        }
 
-    // 1. 정렬 O(nlogn)
-    // 2. 배열 순회하면서 카운팅 
+        List<Integer>[] freqList = new ArrayList[n + 1]; // n개 까지 빈도수 가능하므로 하나더 크게 생성
+        // 해시맵에서 키와 값을 둘다 가져와야한다.
+        // 키를 먼저 가져와서 키로 값을 가져온다.
+        for (int freqKey: freqMap.keySet()) {
+            int freqValue = freqMap.get(freqKey);
+            if (freqList[freqValue] == null) { 
+                freqList[freqValue] = new ArrayList<>(); // 저장할 리스트 초기화
+            }
+            freqList[freqValue].add(freqKey);
+        }
 
-    // public int[] topKFrequent(int[] nums, int k) {
-    //     int n = nums.length;
-    //     HashMap<Integer, Integer> freqMap = new HashMap<>();
-    //     for (int num: nums) {
-    //         freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
-    //     }
+        // 3. 빈도수가 가장 높은 뒤에서부터 조회하며 반환할 결과값 저장
+        List<Integer> result = new ArrayList<>();
+        for (int i = freqList.length - 1; i >= 0 && result.size() < k; i--) {
+            if (freqList[i] != null) {
+                result.addAll(freqList[i]);
+            }
+        }
 
-    //     List<Integer>[] freqList = new ArrayList[n + 1]; // n개 까지 빈도수 가능하므로 하나더 크게 생성
-    //     // 해시맵에서 키와 값을 둘다 가져와야한다.
-    //     // 키를 먼저 가져와서 키로 값을 가져온다.
-    //     for (int freqKey: freqMap.keySet()) {
-    //         int freqValue = freqMap.get(freqKey);
-    //         if (freqList[freqValue] == null) { 
-    //             freqList[freqValue] = new ArrayList<>(); // 저장할 리스트 초기화
-    //         }
-    //         freqList[freqValue].add(freqKey);
-    //     }
-
-    //     // 3. 빈도수가 가장 높은 뒤에서부터 조회하며 반환할 결과값 저장
-    //     List<Integer> result = new ArrayList<>();
-    //     for (int i = freqList.length - 1; i >= 0 && result.size() < k; i--) {
-    //         if (freqList[i] != null) {
-    //             result.addAll(freqList[i]);
-    //         }
-    //     }
-
-    //     return result.stream().mapToInt(i -> i).limit(k).toArray(); 
-    //     // int[] result = new int[k];
-    //     // int idx = 0;
-    //     // for (int i = freqList.length - 1; i >= 0; i--) {
-    //     //     if (freqList[i] != null) {
-    //     //         for (int num: freqList[i]) {
-    //     //             if (idx == k) break;
-    //     //             result[idx++] = num;
-    //     //         }
-    //     //     }
-    //     // }
-    //     // return result;
-    // }
+        return result.stream().mapToInt(i -> i).limit(k).toArray(); 
+        // int[] result = new int[k];
+        // int idx = 0;
+        // for (int i = freqList.length - 1; i >= 0; i--) {
+        //     if (freqList[i] != null) {
+        //         for (int num: freqList[i]) {
+        //             if (idx == k) break;
+        //             result[idx++] = num;
+        //         }
+        //     }
+        // }
+        // return result;
+    }
 
     // public int[] topKFrequent(int[] nums, int k) {
     //     Map<Integer, Integer> freqMap = new HashMap<>();
@@ -77,27 +73,26 @@ class Solution {
     //     return result;
     // }
 
-    // max heap using PriorityQueue
-    public int[] topKFrequent(int[] nums, int k) {
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int n : nums) {
-            map.put(n, map.getOrDefault(n, 0) + 1);
-        }
+    // // max heap using PriorityQueue
+    // public int[] topKFrequent(int[] nums, int k) {
+    //     Map<Integer, Integer> map = new HashMap<>();
+    //     for (int n : nums) {
+    //         map.put(n, map.getOrDefault(n, 0) + 1);
+    //     }
 
-        PriorityQueue<Map.Entry<Integer, Integer>> maxHeap =
-            new PriorityQueue<>((a, b) -> b.getValue() - a.getValue());
+    //     PriorityQueue<Map.Entry<Integer, Integer>> maxHeap =
+    //         new PriorityQueue<>((a, b) -> b.getValue() - a.getValue());
 
-        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            maxHeap.add(entry);
-        }
+    //     for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+    //         maxHeap.add(entry);
+    //     }
 
-        int[] res = new int[k];
-        for (int i = 0; i < k; i++) {
-            res[i] = maxHeap.poll().getKey();
-        }
-        return res;
+    //     int[] res = new int[k];
+    //     for (int i = 0; i < k; i++) {
+    //         res[i] = maxHeap.poll().getKey();
+    //     }
 
-        // return maxHeap.toArray(new int[k]); 
-    }
+    //     return res;
+    // }
 
 }
