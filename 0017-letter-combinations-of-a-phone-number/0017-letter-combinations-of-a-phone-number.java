@@ -7,8 +7,7 @@ class Solution {
     public List<String> letterCombinations(String digits) {
         List<String> ans = new ArrayList<>();
         if (digits == null || digits.isEmpty()) return ans;
-        // 인덱스 2부터 시작하므로 편리하게 해시맵으로 매핑된 문자열을 생성
-        HashMap<Character, String> digitToLetters = new HashMap<>();
+        HashMap<Character, String> digitToLetters = new HashMap<>(); // 인덱스 2부터 시작하므로 편리하게 해시맵으로 매핑된 문자열을 생성
         digitToLetters.put('2', "abc");
         digitToLetters.put('3', "def");
         digitToLetters.put('4', "ghi");
