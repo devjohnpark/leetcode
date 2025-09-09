@@ -112,26 +112,54 @@ class Solution {
         return max;
     }
 
+    private int getSmallIndex(boolean v[], int d[], int NUMBER) {
+        int min = INF;
+        int index = 0;
+        // 모두 순차적으로 탐색: 선형 탐색 -> 가장 쉽게 다익스트라 구현 (가장 효율적이지는 않음)
+        for (int i = 0; i < NUMBER; i++) {
+            if (!v[i] && d[i] < min) {
+                min = d[i];
+                index = i;
+            }
+        }
+        return index;
+    }
+
     private void dijkstra(int start, int[][] a, int N, boolean[] visited, int[] d) {
         Arrays.fill(d, INF);
         d[start] = 0;
 
+        for (int i = 0; i < N; i++) {
+            d[i] = a[start][i]; // 시작점으로부터 출발했을때 모든 경로에 대해 거리 저장
+        }
+
+        visited[start] = true; // 시작점 방문했다고 마킹
+
         for (int iter = 0; iter < N; iter++) {
             // 아직 방문 안 했고 d가 최소인 정점 u 선택
-            int u = -1, min = INF;
-            for (int i = 0; i < N; i++) {
-                if (!visited[i] && d[i] < min) {
-                    min = d[i];
-                    u = i;
-                }
-            }
-            if (u == -1) break;       // 더 이상 갱신 불가
-            visited[u] = true;
+            // int u = -1, min = INF;
+            int current = getSmallIndex(visited, d, N);
+            visited[current] = true;
+
+            // for (int i = 0; i < N; i++) {
+            //     if (!visited[i] && d[i] < min) {
+            //         min = d[i];
+            //         u = i;
+            //     }
+            // }
+            
+            // // 만약 모든 노드가 방문되었거나 도달 불가능해서 조건을 만족하는 노드가 하나도 없으면, 루프를 다 돌아도 u 값이 갱신되지 않고 그대로 -1이 남는다.
+            // if (u == -1) break; // 더 이상 갱신 불가
+            // visited[u] = true;
 
             // u를 거쳐 v로 가는 경로 릴랙스
-            for (int v = 0; v < N; v++) {
-                if (!visited[v] && a[u][v] < INF && d[u] + a[u][v] < d[v]) {
-                    d[v] = d[u] + a[u][v];
+            for (int j = 0; j < N; j++) {
+                // if (!visited[v] && a[u][v] < INF && d[u] + a[u][v] < d[v]) {
+                //     d[v] = d[u] + a[u][v];
+                // }
+
+                if (!visited[j] && d[current] + a[current][j] < d[j]) {
+                    d[j] = d[current] + a[current][j]; // 작은 값으로 갱신
                 }
             }
         }
