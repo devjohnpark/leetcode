@@ -118,10 +118,10 @@ class Solution {
 
         for (int iter = 0; iter < N; iter++) {
             // 아직 방문 안 했고 d가 최소인 정점 u 선택
-            int u = -1, best = INF;
+            int u = -1, min = INF;
             for (int i = 0; i < N; i++) {
-                if (!visited[i] && d[i] < best) {
-                    best = d[i];
+                if (!visited[i] && d[i] < min) {
+                    min = d[i];
                     u = i;
                 }
             }
