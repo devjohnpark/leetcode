@@ -79,6 +79,13 @@
 //     }
 // }
 
+// 시간 복잡도: 100 x 100 = 10000이므로 O(N^2) 내에 풀어야한다.
+// 입력값: 출발지, 도착지, 비용
+// k: k번째 노드부터 탐색 시작
+// n: 탐색힐 노드의 개수 (신호를 받은 노드의 개수)
+// n개의 노드로 탐색 못할시 -1 반환
+// 입력받은 2차원 배열로 directed matrix를 만든다.
+// k번째 노드 부터 시작해서 n번 만큼 다익스트라 탐색을 수행한다. 만일, n번 만큼 탐색하지 못할시에 -1을 반환한다.
 import java.util.Arrays;
 
 class Solution {
@@ -91,21 +98,23 @@ class Solution {
             Arrays.fill(a[i], INF);
             a[i][i] = 0;
         }
-        // 2) 간선 채우기 (1-based → 0-based)
+
+        // 2) 간선 채우기
         for (int i = 0; i < times.length; i++) {
             int u = times[i][0] - 1;
             int v = times[i][1] - 1;
             int w = times[i][2];
-            if (w < a[u][v]) a[u][v] = w; // 혹시 모를 중복 간선 대비
+            a[u][v] = w;
+            // if (w < a[u][v]) a[u][v] = w; // 혹시 모를 중복 간선 대비
         }
 
-        boolean[] visited = new boolean[n];
+        boolean[] v = new boolean[n];
         int[] d = new int[n];
-        dijkstra(k - 1, a, n, visited, d);
+        dijkstra(k - 1, a, n, v, d);
 
         // 3) 결과 계산: 도달 못한 노드 있으면 -1, 아니면 최댓값 반환
         int max = 0;
-        for (int dist : d) {
+        for (int dist: d) {
             if (dist >= INF) return -1;
             if (dist > max) max = dist;
         }
@@ -125,7 +134,7 @@ class Solution {
         return index;
     }
 
-    private void dijkstra(int start, int[][] a, int N, boolean[] visited, int[] d) {
+    private void dijkstra(int start, int[][] a, int N, boolean[] v, int[] d) {
         Arrays.fill(d, INF);
         d[start] = 0;
 
@@ -133,13 +142,13 @@ class Solution {
             d[i] = a[start][i]; // 시작점으로부터 출발했을때 모든 경로에 대해 거리 저장
         }
 
-        visited[start] = true; // 시작점 방문했다고 마킹
+        v[start] = true; // 시작점 방문했다고 마킹
 
         for (int iter = 0; iter < N; iter++) {
             // 아직 방문 안 했고 d가 최소인 정점 u 선택
             // int u = -1, min = INF;
-            int current = getSmallIndex(visited, d, N);
-            visited[current] = true;
+            int current = getSmallIndex(v, d, N);
+            v[current] = true;
 
             // for (int i = 0; i < N; i++) {
             //     if (!visited[i] && d[i] < min) {
@@ -153,7 +162,7 @@ class Solution {
             // visited[u] = true;
 
             for (int j = 0; j < N; j++) {
-                if (!visited[j] && d[current] + a[current][j] < d[j]) {
+                if (!v[j] && d[current] + a[current][j] < d[j]) {
                     d[j] = d[current] + a[current][j]; // 작은 값으로 갱신
                 }
             }
