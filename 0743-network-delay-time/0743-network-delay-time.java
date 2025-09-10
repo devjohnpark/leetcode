@@ -83,19 +83,19 @@
 // 입력값: 출발지, 도착지, 비용
 // k: k번째 노드부터 탐색 시작
 // n: 탐색힐 노드의 개수 (신호를 받은 노드의 개수)
-// n개의 노드로 탐색 못할시 -1 반환: n번 
+// n개의 노드가 연결되지 못할시 -1 반환
 // 입력받은 2차원 배열로 directed matrix를 만든다.
 // k번째 노드 부터 시작해서 n번 만큼 다익스트라 탐색을 수행한다. 만일, n번 만큼 탐색하지 못할시에 -1을 반환한다.
 import java.util.Arrays;
 
 class Solution {
-    private static final int INF = 1_000_000_000;
+    private static final int INF = 101;
 
     public int networkDelayTime(int[][] times, int n, int k) {
         // 1) 인접 행렬: 기본 INF, 자기자신 0
         int[][] a = new int[n][n];
         for (int i = 0; i < n; i++) {
-            Arrays.fill(a[i], INF); // i번째 행의 모든 열을 INF로 채움
+            Arrays.fill(a[i], INF); // 배열 a[i]의 모든 요소(열) 를 INF 값으로 채워 넣는 방식
             a[i][i] = 0; // 자기 자신으로 가는 경로는 거리 0으로 설정
         }
 
@@ -120,11 +120,11 @@ class Solution {
         return max;
     }
 
-    private int getSmallIndex(boolean v[], int d[], int NUMBER) {
+    private int getSmallIndex(boolean v[], int d[], int n) {
         int min = INF;
         int index = 0;
         // 모두 순차적으로 탐색: 선형 탐색 -> 가장 쉽게 다익스트라 구현 (가장 효율적이지는 않음)
-        for (int i = 0; i < NUMBER; i++) {
+        for (int i = 0; i < n; i++) {
             if (!v[i] && d[i] < min) {
                 min = d[i];
                 index = i;
@@ -134,9 +134,6 @@ class Solution {
     }
 
     private void dijkstra(int start, int[][] a, int N, boolean[] v, int[] d) {
-        // Arrays.fill(d, INF);
-        // d[start] = 0;
-
         for (int i = 0; i < N; i++) {
             d[i] = a[start][i]; // 시작점으로부터 출발했을때 모든 경로에 대해 거리 저장
         }
