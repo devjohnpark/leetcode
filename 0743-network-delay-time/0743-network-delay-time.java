@@ -89,7 +89,7 @@
 import java.util.Arrays;
 
 class Solution {
-    private static final int INF = 101;
+    private static final int INF = 6001;
 
     public int networkDelayTime(int[][] times, int n, int k) {
         // 1) 인접 행렬: 기본 INF, 자기자신 0
