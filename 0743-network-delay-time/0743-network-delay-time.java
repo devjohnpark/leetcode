@@ -152,12 +152,7 @@ class Solution {
             // if (u == -1) break; // 더 이상 갱신 불가
             // visited[u] = true;
 
-            // u를 거쳐 v로 가는 경로 릴랙스
             for (int j = 0; j < N; j++) {
-                // if (!visited[v] && a[u][v] < INF && d[u] + a[u][v] < d[v]) {
-                //     d[v] = d[u] + a[u][v];
-                // }
-
                 if (!visited[j] && d[current] + a[current][j] < d[j]) {
                     d[j] = d[current] + a[current][j]; // 작은 값으로 갱신
                 }
