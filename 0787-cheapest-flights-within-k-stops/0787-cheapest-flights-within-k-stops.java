@@ -92,15 +92,20 @@ class Solution {
 
         // BFS
         while(!q.isEmpty() && depth <= k) {
+            // 한번에 큐에 있는 정점을 꺼내서 처리해야, 인접한 노드의 거리를 모두 비교 가능하다.
             int size = q.size();
-            while (size-- > 0) {
-                int[] curr = q.poll();
-                for (int[] neighbour : adj.get(curr[0])) {
-                    int price = neighbour[1], neighbourNode = neighbour[0];
-                    if (price + curr[1] >= minCost[neighbourNode]) continue;
-                    minCost[neighbourNode] = price + curr[1];
-                    q.offer(new int[] {neighbourNode, minCost[neighbourNode]});
+            while (size > 0) {
+                int[] curr = q.poll(); // 방문 정점
+
+                // 방문 노드로부터 인접 정점간에 비용을 비교하여, 가장 작은 비용의 정점을 추가하고 최단 거리 배열 갱신
+                for (int[] adjacent : adj.get(curr[0])) {
+                    int adjVertax = adjacent[0];
+                    int cost = adjacent[1];
+                    if (cost + curr[1] >= minCost[adjVertax]) continue;
+                    minCost[adjVertax] = cost + curr[1];
+                    q.offer(new int[] { adjVertax, minCost[adjVertax] });
                 }
+                size--;
             }
             depth++;
         }
