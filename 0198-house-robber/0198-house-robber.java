@@ -13,6 +13,8 @@
 // dp[i-1]: i번째 집을 안 터는 경우, 이전까지의 최댓값 유지
 // dp[i-2] + nums[i]: i번째 집을 터는 경우, 인접 제한 때문에 i-2까지의 최댓값에 현재 집 금액 추가
 // 따라서 점화식은 dp[i] = Math.max(dp[i-1], dp[i-2] + nums[i])을 성립한다.
+// dp[i-2] 때문에 점화식 초기 조건은 2부터이다.
+// 따라서 초기 조건이 0일때는 nums[0]이고, 1일때는 nums[0]과 nums[1] 중에서 큰수이다.
 class Solution {
     public int rob(int[] nums) {
         int n = nums.length;
