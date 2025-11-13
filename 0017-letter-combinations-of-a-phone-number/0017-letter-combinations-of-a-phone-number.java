@@ -44,11 +44,12 @@ class Solution {
 
         String letters = mapLetters.get(digits.charAt(depth)); // "abc"
 
+        // 재귀의 동작 흐름 이해가 아직 미약함
         // "ad" -> "a" -> "ae" -> "a" -> "af"
         for (int i = 0; i < letters.length(); i++) {
-            sb.append(letters.charAt(i)); // out: "a"
+            sb.append(letters.charAt(i)); // out: "a", "b", "c"
             backtracking(digits, depth + 1, sb, mapLetters, ans); // out: "ad", "ae", "af"
-            sb.deleteCharAt(sb.length() - 1); // out: "a"
+            sb.deleteCharAt(sb.length() - 1); // out: "", "", ""
         }
 
     }
