@@ -45,11 +45,13 @@ class Solution {
         String letters = mapLetters.get(digits.charAt(depth)); // "abc"
 
         // 재귀의 동작 흐름 이해가 아직 미약함
-        // "ad" -> "a" -> "ae" -> "a" -> "af"
+        // 첫번째 for문 돌기: "ad" -> "a" -> "ae" -> "a" -> "af"
+        // 두번째 for문 돌기: "bd" -> "b" -> "be" -> "b" -> "bf"
+        // 세번째 for문 돌기: "cd" -> "c" -> "ce" -> "c" -> "cf"
         for (int i = 0; i < letters.length(); i++) {
-            sb.append(letters.charAt(i)); // out: "a", "b", "c"
-            backtracking(digits, depth + 1, sb, mapLetters, ans); // out: "ad", "ae", "af"
-            sb.deleteCharAt(sb.length() - 1); // out: "", "", ""
+            sb.append(letters.charAt(i)); 
+            backtracking(digits, depth + 1, sb, mapLetters, ans); 
+            sb.deleteCharAt(sb.length() - 1); 
         }
 
     }
